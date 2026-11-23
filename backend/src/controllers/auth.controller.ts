@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+﻿import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import { User } from '../models/user.model';
@@ -59,16 +59,24 @@ export class AuthController {
       // Generate 6-digit crypto-secure OTP & store bcrypt hash in MongoDB
       const { otp } = await otpService.createOrUpdateOtp(email);
 
-      // Dispatch real email via Gmail SMTP (Nodemailer)
+      // Send OTP using Gmail API
       const emailResult = await emailService.sendOtpEmail(email, otp, studentName);
+
+      if (!emailResult.success) {
+        console.error('[REGISTRATION OTP DELIVERY FAILED]', emailResult.error);
+        return res.status(503).json({
+          success: false,
+          email,
+          deliverySuccess: false,
+          message: 'Unable to send verification email right now. Please try again shortly.',
+        });
+      }
 
       return res.json({
         success: true,
         email,
-        message: emailResult.success
-          ? 'Verification code sent to your email'
-          : `Verification code generated. ${emailResult.error ? `Notice: ${emailResult.error}` : ''}`,
-        deliverySuccess: emailResult.success,
+        deliverySuccess: true,
+        message: 'Verification code sent to your email.',
       });
     } catch (err: any) {
       console.error('Error in sendVerificationOtp:', err);
@@ -390,14 +398,26 @@ export class AuthController {
           await user.save();
         }
       } else if (user.isVerified === false && user.emailVerified === false) {
-        // Unverified user requesting login: trigger fresh OTP
+        // Unverified user requesting login: send a fresh OTP
         const { otp } = await otpService.createOrUpdateOtp(user.email);
-        await emailService.sendOtpEmail(user.email, otp, user.name);
+        const emailResult = await emailService.sendOtpEmail(user.email, otp, user.name);
+
+        if (!emailResult.success) {
+          console.error('[LOGIN OTP DELIVERY FAILED]', emailResult.error);
+          return res.status(503).json({
+            success: false,
+            isUnverified: true,
+            email: user.email,
+            deliverySuccess: false,
+            message: 'Your email is not verified. We could not send a verification code right now. Please try again shortly.',
+          });
+        }
 
         return res.status(403).json({
           success: false,
           isUnverified: true,
           email: user.email,
+          deliverySuccess: true,
           message: 'Your email is not verified yet. A verification code has been sent to your email.',
         });
       }
@@ -549,7 +569,15 @@ export class AuthController {
       }
 
       const { otp } = await otpService.createOrUpdateOtp(email);
-      await emailService.sendOtpEmail(email, otp, user.name || 'Student');
+      const emailResult = await emailService.sendOtpEmail(email, otp, user.name || 'Student');
+
+      if (!emailResult.success) {
+        console.error('[FORGOT PASSWORD OTP DELIVERY FAILED]', emailResult.error);
+        return res.status(503).json({
+          success: false,
+          message: 'Unable to process the password reset email right now. Please try again later.',
+        });
+      }
 
       return res.json({
         success: true,
