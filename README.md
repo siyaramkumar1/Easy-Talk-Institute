@@ -1,20 +1,58 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Easy Talk Institute
 
-# Run and deploy your AI Studio app
+**A Full Stack Spoken English Learning Management Platform**
 
-This contains everything you need to run your app locally.
+Easy Talk Institute is a web-based learning management platform designed to organize spoken English courses, student enrollments, batches, and administrative operations through a centralized system.
 
-View your app in AI Studio: https://ai.studio/apps/3cf4554e-4dc0-4ff9-bc74-59a367d62f71
+🌐 **Live Website:** https://easy-talk-institute.netlify.app
+
+## Features
+
+- Role-based authentication for Students, Admins, and Super Admins
+- Student and Admin dashboards
+- Course and Batch Management
+- Student Enrollment and Seat Reservation
+- Notification Management
+- Gallery and Testimonials
+- Contact Management
+- Responsive User Interface
+- REST API Integration
+- Real-time communication with Socket.IO
+
+## Technology Stack
+
+**Frontend:** React.js, TypeScript, Vite, Tailwind CSS
+
+**Backend:** Node.js, Express.js
+
+**Database:** MongoDB, Mongoose
+
+**Authentication:** JWT
+
+**Other Tools:** Axios, Zustand, Socket.IO
+
+## Deployment
+
+- Frontend: Netlify
+- Backend: Render
+- Database: MongoDB Atlas
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Configure the required environment variables in your local environment file.
+4. Start the development server using `npm run dev`.
 
+## Developer
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+**Siyaram Kumar**
+
+Full Stack Web Developer (Fresher)
+
+- LinkedIn: https://www.linkedin.com/in/siyaram-kumar-dev/
+- GitHub: https://github.com/siyaramkumar1
+
+---
+
+Developed as a practical Full Stack Web Development project.
