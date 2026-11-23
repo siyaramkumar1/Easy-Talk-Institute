@@ -1,0 +1,6 @@
+{
+  "name": "Easy Talk Institute LMS",
+  "description": "Easy Talk Institute Learning Management System featuring English courses, batch tracking, reading practice, interactive challenges, and student performance analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

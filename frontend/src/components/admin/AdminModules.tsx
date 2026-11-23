@@ -1,0 +1,15 @@
+export { AdminCourses } from './AdminCourses';
+export { AdminBatches } from './AdminBatches';
+export { AdminAssessmentTests } from './AdminAssessmentTests';
+export { default as NotificationCenter } from '../../pages/admin/NotificationCenter';
+export { AdminContacts } from './AdminContacts';
+export { AdminTestimonials } from './AdminTestimonials';
+export { AdminQuestions } from './AdminQuestions';
+export { AdminTestResults } from './AdminTestResults';
+export { AdminSeatReservations } from './AdminSeatReservations';
+export { AdminGallery } from './AdminGallery';
+export { AdminLogs } from './AdminLogs';
+export { AdminSettings } from './AdminSettings';
+export { AdminUsers } from './AdminUsers';
+export { AdminEnrollments } from './AdminEnrollments';
+export { default as AdminReadingStories } from './AdminReadingStories';
