@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, X, RefreshCw, CheckCircle2, KeyRound } from 'lucide-react';
 import Logo from '../components/layout/Logo';
 import toast from 'react-hot-toast';
+import { API_BASE_URL } from '../utils/apiConfig';
 
 const REMEMBERED_EMAIL_KEY = 'et_remembered_email';
 const REMEMBER_ME_PREF_KEY = 'et_remember_me';
@@ -89,7 +90,7 @@ export default function Login() {
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -287,7 +288,7 @@ export default function Login() {
                     setForgotError('');
                     setForgotLoading(true);
                     try {
-                      const res = await fetch('/api/auth/forgot-password', {
+                      const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: forgotEmail.trim() }),
@@ -342,7 +343,7 @@ export default function Login() {
                     setForgotError('');
                     setForgotLoading(true);
                     try {
-                      const res = await fetch('/api/auth/reset-password', {
+                      const res = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -414,3 +415,8 @@ export default function Login() {
     </div>
   );
 }
+
+
+
+
+

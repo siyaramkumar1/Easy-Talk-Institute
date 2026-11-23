@@ -4,6 +4,7 @@ import { ShieldCheck, Mail, ArrowRight, RefreshCw, CheckCircle2, AlertCircle } f
 import Logo from '../components/layout/Logo';
 import { useAuthStore } from '../store/useAuthStore';
 import toast from 'react-hot-toast';
+import { API_BASE_URL } from '../utils/apiConfig';
 
 export default function VerifyOtp() {
   const location = useLocation();
@@ -117,7 +118,7 @@ export default function VerifyOtp() {
     setIsVerifying(true);
 
     try {
-      const response = await fetch('/api/auth/verify-otp', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim().toLowerCase(), otp: code })
@@ -167,7 +168,7 @@ export default function VerifyOtp() {
     setIsResending(true);
 
     try {
-      const response = await fetch('/api/auth/resend-otp', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/resend-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim().toLowerCase() })
@@ -326,3 +327,7 @@ export default function VerifyOtp() {
     </div>
   );
 }
+
+
+
+

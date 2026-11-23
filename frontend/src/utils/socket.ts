@@ -1,4 +1,5 @@
-import { io, Socket } from 'socket.io-client';
+﻿import { io, Socket } from 'socket.io-client';
+import { API_BASE_URL } from './apiConfig';
 import { useAuthStore } from '../store/useAuthStore';
 
 let socketInstance: Socket | null = null;
@@ -13,7 +14,7 @@ export const getAppSocket = (): Socket | null => {
 
   if (!socketInstance) {
     try {
-      const serverUrl = window.location.origin;
+      const serverUrl = API_BASE_URL || window.location.origin;
 
       socketInstance = io(serverUrl, {
         path: '/socket.io/',
@@ -63,5 +64,6 @@ export const disconnectAppSocket = (): void => {
     socketInstance.disconnect();
   }
 };
+
 
 
